@@ -1,9 +1,10 @@
-import getById from '../../models/contacts/getById';
 import { HttpCode } from '../../lib/constants';
+import getContactById from '../../repository/contacts/getContactByIdRepository';
 
 const getByIdController = async (req, res, next) => {
   const { id } = req.params;
-  const contact = await getById(id);
+  const { id: userId } = req.user;
+  const contact = await getContactById(userId, id);
   if (contact) {
     return res
       .status(HttpCode.OK)

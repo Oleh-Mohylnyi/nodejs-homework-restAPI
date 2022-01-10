@@ -1,9 +1,10 @@
-import removeContact from '../../models/contacts/removeContact';
 import { HttpCode } from '../../lib/constants';
+import removeContact from '../../repository/contacts/removeContactRepository';
 
 const removeContactController = async (req, res, next) => {
   const { id } = req.params;
-  const contact = await removeContact(id)
+  const { id: userId } = req.user;
+  const contact = await removeContact(userId, id)
   if (contact) {
     return res
       .status(HttpCode.OK)

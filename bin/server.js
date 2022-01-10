@@ -1,10 +1,7 @@
 import app from '../app';
 import db from '../lib/db'
-// import dotenv from 'dotenv'
 
 const PORT = process.env.PORT || 3000
-
-// dotenv.config({path: './config/.env'})
 
 db.then(() => {
   app.listen(PORT, () => {

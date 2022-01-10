@@ -1,9 +1,10 @@
-import updateStatusContact from '../../models/contacts/updateStatusContact';
+import updateContactFavorite from '../../repository/contacts/updateStatusContactRepository';
 import { HttpCode } from '../../lib/constants';
 
 const updateContactFavoriteController = async (req, res, next) => {
-    const { id } = req.params;
-    const updatedContact = await updateStatusContact(id, req.body);
+  const { id } = req.params;
+  const { id: userId } = req.user;
+    const updatedContact = await updateContactFavorite(userId, id, req.body);
   if (updatedContact) {
     return res
       .status(HttpCode.OK)

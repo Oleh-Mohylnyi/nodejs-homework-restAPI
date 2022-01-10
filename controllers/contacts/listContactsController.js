@@ -1,8 +1,9 @@
-import listContacts from '../../models/contacts/listContacts';
 import { HttpCode } from '../../lib/constants';
+import listContacts from '../../repository/contacts/listContactsRepository';
 
 const listContactsController = async (req, res, next) => {
-  const contacts = await listContacts(req.query);
+  const { id: userId } = req.user;
+  const contacts = await listContacts(userId, req.query);
   console.log(req.query);
   res
     .status(HttpCode.OK)
