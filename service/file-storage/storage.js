@@ -18,7 +18,7 @@ class UploadFileService {
     const pic = await Jimp.read(pathFile)
     await pic
       .autocrop()
-      .cover(200,200,Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE)
+      .cover(250,250,Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE)
       .writeAsync(pathFile)
   }
 }

@@ -1,7 +1,9 @@
 import { HttpCode } from '../../lib/constants';
 import listContacts from '../../repository/contacts/listContactsRepository';
 
-const listContactsController = async (req, res, next) => {
+class ListContactsController {
+
+async execute(req, res, next) {
   const { id: userId } = req.user;
   const contacts = await listContacts(userId, req.query);
   console.log(req.query);
@@ -9,5 +11,6 @@ const listContactsController = async (req, res, next) => {
     .status(HttpCode.OK)
     .json({ status: 'success', code: HttpCode.OK, data: { ...contacts } })
 }
+}
 
-export default listContactsController;
+export default ListContactsController;

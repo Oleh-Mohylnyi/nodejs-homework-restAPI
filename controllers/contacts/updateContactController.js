@@ -1,7 +1,9 @@
 import { HttpCode } from '../../lib/constants';
 import updateContact from '../../repository/contacts/updateContactRepository';
 
-const updateContactController = async (req, res, next) => {
+class UpdateContactController {
+
+async execute(req, res, next) {
   const { id } = req.params;
   const { id: userId } = req.user;
   const updatedContact = await updateContact(userId, id, req.body)
@@ -14,5 +16,6 @@ const updateContactController = async (req, res, next) => {
     .status(HttpCode.NOT_FOUND)
     .json({ status: 'error', code: HttpCode.NOT_FOUND, message: 'Not found' })
 }
+}
 
-export default updateContactController
+export default UpdateContactController

@@ -1,7 +1,9 @@
 import updateContactFavorite from '../../repository/contacts/updateStatusContactRepository';
 import { HttpCode } from '../../lib/constants';
 
-const updateContactFavoriteController = async (req, res, next) => {
+class UpdateContactFavoriteController {
+
+async execute(req, res, next) {
   const { id } = req.params;
   const { id: userId } = req.user;
     const updatedContact = await updateContactFavorite(userId, id, req.body);
@@ -14,5 +16,6 @@ const updateContactFavoriteController = async (req, res, next) => {
     .status(HttpCode.NOT_FOUND)
     .json({ status: 'error', code: HttpCode.NOT_FOUND, message: 'Not found' })
 }
+}
 
-export default updateContactFavoriteController
+export default UpdateContactFavoriteController

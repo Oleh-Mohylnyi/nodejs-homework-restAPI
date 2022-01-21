@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import repositoryUsers from '../../repository/users'
 const SECRET_KEY = process.env.SECRET_KEY
 
-export default class AuthService {
+class AuthService {
     async isUserExist(email) {
         const user = await repositoryUsers.findByEmail(email)
         return !!user
@@ -33,3 +33,5 @@ export default class AuthService {
     await repositoryUsers.updateToken(id, token)
   }
 }
+
+export default new AuthService()

@@ -12,7 +12,7 @@ const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 app.use(helmet())
 app.use(logger(formatsLogger));
-app.use(express.static(process.env.FOLDER_FOR_AVATARS));
+app.use(express.static('public'));
 app.use(cors());
 app.use(express.json({ limit: LIMIT_JSON }));
 app.use(express.urlencoded({ extended: false }))

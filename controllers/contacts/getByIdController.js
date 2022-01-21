@@ -1,7 +1,9 @@
 import { HttpCode } from '../../lib/constants';
 import getContactById from '../../repository/contacts/getContactByIdRepository';
 
-const getByIdController = async (req, res, next) => {
+class GetByIdController {
+
+async execute(req, res, next) {
   const { id } = req.params;
   const { id: userId } = req.user;
   const contact = await getContactById(userId, id);
@@ -14,5 +16,6 @@ const getByIdController = async (req, res, next) => {
     .status(HttpCode.NOT_FOUND)
     .json({ status: 'error', code: HttpCode.NOT_FOUND, message: 'Not found' })
 }
+}
 
-export default getByIdController;
+export default GetByIdController;

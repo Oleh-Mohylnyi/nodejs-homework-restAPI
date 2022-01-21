@@ -1,7 +1,5 @@
 import { HttpCode } from '../../lib/constants';
-import AuthService from '../../service/auth';
-
-const authService = new AuthService();
+import authService from '../../service/auth';
 
 const registration = async (req, res, next) => {
     const { email } = req.body
@@ -16,9 +14,9 @@ const registration = async (req, res, next) => {
             })
     }
     const data = await authService.create(req.body)
-    res.status(HttpCode.OK).json({
+    res.status(HttpCode.CREATED).json({
         status: 'success',
-        code: HttpCode.OK,
+        code: HttpCode.CREATED,
         data
     })
 }
@@ -47,4 +45,4 @@ const logout = async (req, res, next) => {
         .json({ status: 'success', code: HttpCode.OK, data: {} })
 }
 
-export {registration, login, logout};
+export { registration, login, logout };

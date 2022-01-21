@@ -4,7 +4,7 @@ import { HttpCode } from '../../lib/constants'
 import {
   UploadFileService,
   LocalFileStorage,
-  CloudFileStorage,
+  // CloudFileStorage,
 } from '../../service/file-storage'
 
 const aggregation = async (req, res, next) => {
@@ -26,15 +26,13 @@ const uploadAvatar = async (req, res, next) => {
     req.file,
     req.user,
   )
-
   const avatarUrl = await uploadService.updateAvatar()
-
   res
     .status(HttpCode.OK)
       .json({
           status: 'success',
           code: HttpCode.OK,
-          // message: "Success!",
+          message: "Success!",
           data: { avatarUrl }
       })
 }

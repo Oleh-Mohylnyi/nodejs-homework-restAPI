@@ -1,34 +1,49 @@
 import { Router } from 'express';
 
-import { validateCreate, validateUpdate, validateId, validateQuery, validateUpdateFavorite } from '../../../midllewares/validation/contactValidation';
+import {
+    validateCreate,
+    validateUpdate,
+    validateId,
+    validateQuery,
+    validateUpdateFavorite
+} from '../../../midllewares/validation/contactValidation';
 
-import listContactsController from '../../../controllers/contacts/listContactsController';
-import getByIdController from '../../../controllers/contacts/getByIdController';
-import removeContactController from '../../../controllers/contacts/removeContactController';
-import updateContactController from '../../../controllers/contacts/updateContactController';
-import addContactController from '../../../controllers/contacts/addContactController';
-import updateContactFavoriteController from '../../../controllers/contacts/updateContactFavoriteController';
+import {
+    ListContactsController,
+    GetByIdController,
+    RemoveContactController,
+    UpdateContactController,
+    AddContactController,
+    UpdateContactFavoriteController
+} from '../../../controllers/contacts';
+
 
 import guard from '../../../midllewares/guard';
 
 const router = new Router();
 
-router.get('/', [guard, validateQuery], listContactsController);
+const listContactsController = new ListContactsController();
+router.get('/', [guard, validateQuery], listContactsController.execute);
 
-router.get('/:id', [guard, validateId], getByIdController);
+const getByIdController = new GetByIdController();
+router.get('/:id', [guard, validateId], getByIdController.execute);
 
-router.post('/', [guard, validateCreate], addContactController);
+const addContactController = new AddContactController();
+router.post('/', [guard, validateCreate], addContactController.execute);
 
-router.delete('/:id', [guard, validateId], removeContactController);
+const removeContactController = new RemoveContactController();
+router.delete('/:id', [guard, validateId], removeContactController.execute);
 
+const updateContactController = new UpdateContactController();
 router.put(
     '/:id',
     [guard, validateId, validateUpdate],
-    updateContactController);
+    updateContactController.execute);
 
+    const updateContactFavoriteController = new UpdateContactFavoriteController();
 router.patch(
     '/:id/favorite',
     [guard, validateId, validateUpdateFavorite],
-    updateContactFavoriteController);
+    updateContactFavoriteController.execute);
 
 export default router;
