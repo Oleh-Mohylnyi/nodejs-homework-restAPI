@@ -45,6 +45,7 @@ const uploadAvatar = async (req, res, next) => {
 const verifyUser = async (req, res, next) => {
   const verifyToken = req.params.token;
   const userFromToken = await repositoryUsers.findByVerifyToken(verifyToken);
+
   if (userFromToken) {
     await repositoryUsers.updateVerify(userFromToken.id, true)
     return res
@@ -52,25 +53,27 @@ const verifyUser = async (req, res, next) => {
         .json({
             status: 'success',
             code: HttpCode.OK,
-            data: { message: 'Success' }
+            data: { message: 'Verification successful' }
       })
   }
-  throw new CustomError(HttpCode.BAD_REQUEST, 'Invalid token')
+  throw new CustomError(HttpCode.BAD_REQUEST, 'Verification has already been passed')
 }
 
 const repeatEmailForVerifyUser = async (req, res, next) => {
-    const { email } = req.body;
+  const { email } = req.body;
+  if (!email) {
+    throw new CustomError(HttpCode.BAD_REQUEST, 'Missing required field email')
+  }
     const user = await repositoryUsers.findByEmail(email);
     if (user) {
-      const { email, name, verifyTokenEmail } = user
+      const { email, name, verificationToken} = user
 
       const emailService = new EmailService(
         process.env.NODE_ENV,
         new SenderSendgrid(),
       )
-      
       const isSend = await emailService.sendVerifyEmail(
-        email, name, verifyTokenEmail,
+        email, name, verificationToken,
       )
       if (isSend) {
         return res

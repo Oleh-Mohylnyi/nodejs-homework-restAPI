@@ -21,12 +21,12 @@ const updateToken = async (id, token) => {
   return await Users.updateOne({ _id: id }, { token })
 }
 
-const findByVerifyToken = async (verifyTokenEmail) => {
-    return await Users.findOne({verifyTokenEmail})
+const findByVerifyToken = async (verificationToken) => {
+    return await Users.findOne({verificationToken})
 }
 
 const updateVerify = async (id, status) => {
-  return await Users.updateOne({ _id: id }, { isVerify: status, verifyTokenEmail: null })
+  return await Users.updateOne({ _id: id }, { verify: status, verificationToken: null })
 }
 
 

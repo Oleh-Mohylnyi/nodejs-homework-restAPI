@@ -47,8 +47,8 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
-    isVerify: { type: Boolean, default: false },
-    verifyTokenEmail: {
+    verify: { type: Boolean, default: false },
+    verificationToken: {
       type: String,
       default: uuidv4(),
     },

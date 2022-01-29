@@ -18,9 +18,9 @@ const registration = async (req, res, next) => {
         const isSend = await emailService.sendVerifyEmail(
             email,
             userData.name,
-            userData.verifyTokenEmail
+            userData.verificationToken
         )
-        delete userData.verifyTokenEmail
+        delete userData.verificationToken
         res.status(HttpCode.CREATED).json({
             status: 'success',
             code: HttpCode.CREATED,
